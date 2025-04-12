@@ -64,6 +64,8 @@ Antes de rodar os comandos acima, certifique-se de que possui os seguintes requi
 
 ### 📋 Relatórios e Resultados
 
-- **Build e Testes:** O status do build/test é exibido acima.
-- **Artifacts:** Após cada execução, artifacts (build, logs e relatórios) ficam disponíveis na [página de Actions](https://github.com/br-silvano/mcp-todo/actions).
-- **Cobertura de Testes:** [![Cobertura de Testes](https://img.shields.io/codecov/c/github/br-silvano/mcp-todo.svg)](https://codecov.io/gh/br-silvano/mcp-todo)
+- **✅ Status do Build/Testes:** O status da última execução do workflow é exibido no topo do repositório via badge do GitHub Actions.
+- **📦 Artifacts Disponíveis:**
+  - `build-artifact` (📁 `./dist`) – contém os arquivos gerados no processo de build.
+  - `coverage` (📁 `./coverage`) – relatório detalhado de cobertura de testes, com visualização em `coverage/lcov-report/index.html`.
+- **🔗 Acesso aos Artifacts:** Os artifacts gerados estão disponíveis na [página de Actions](https://github.com/br-silvano/mcp-todo/actions).
