@@ -1,0 +1,287 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DescribeToolHandler deve retornar a descrição detalhada da ferramenta TodoManager (incluindo capacidades e exemplos) 1`] = `
+{
+  "tool": {
+    "capabilities": [
+      {
+        "command": "create-todo",
+        "description": "Cria uma nova tarefa com título e descrição.",
+        "input_schema": {
+          "properties": {
+            "completed": {
+              "type": "boolean",
+            },
+            "description": {
+              "type": "string",
+            },
+            "title": {
+              "type": "string",
+            },
+          },
+          "required": [
+            "title",
+          ],
+          "type": "object",
+        },
+        "name": "create-todo",
+        "output_schema": {
+          "properties": {
+            "completed": {
+              "type": "boolean",
+            },
+            "description": {
+              "type": "string",
+            },
+            "id": {
+              "type": "number",
+            },
+            "title": {
+              "type": "string",
+            },
+          },
+          "required": [
+            "id",
+            "title",
+            "description",
+            "completed",
+          ],
+          "type": "object",
+        },
+      },
+      {
+        "command": "get-todo-by-id",
+        "description": "Busca uma tarefa pelo ID.",
+        "input_schema": {
+          "properties": {
+            "id": {
+              "type": "integer",
+            },
+          },
+          "required": [
+            "id",
+          ],
+          "type": "object",
+        },
+        "name": "get-todo-by-id",
+        "output_schema": {
+          "properties": {
+            "completed": {
+              "type": "boolean",
+            },
+            "description": {
+              "type": "string",
+            },
+            "id": {
+              "type": "integer",
+            },
+            "title": {
+              "type": "string",
+            },
+          },
+          "required": [
+            "id",
+            "title",
+            "description",
+            "completed",
+          ],
+          "type": "object",
+        },
+      },
+      {
+        "command": "update-todo",
+        "description": "Atualiza uma tarefa existente.",
+        "input_schema": {
+          "properties": {
+            "completed": {
+              "type": "boolean",
+            },
+            "description": {
+              "type": "string",
+            },
+            "id": {
+              "type": "integer",
+            },
+            "title": {
+              "type": "string",
+            },
+          },
+          "required": [
+            "id",
+          ],
+          "type": "object",
+        },
+        "name": "update-todo",
+        "output_schema": {
+          "properties": {
+            "completed": {
+              "type": "boolean",
+            },
+            "description": {
+              "type": "string",
+            },
+            "id": {
+              "type": "integer",
+            },
+            "title": {
+              "type": "string",
+            },
+          },
+          "required": [
+            "id",
+            "title",
+            "description",
+            "completed",
+          ],
+          "type": "object",
+        },
+      },
+      {
+        "command": "delete-todo",
+        "description": "Remove uma tarefa pelo ID.",
+        "input_schema": {
+          "properties": {
+            "id": {
+              "type": "number",
+            },
+          },
+          "required": [
+            "id",
+          ],
+          "type": "object",
+        },
+        "name": "delete-todo",
+        "output_schema": {
+          "properties": {
+            "success": {
+              "type": "boolean",
+            },
+          },
+          "required": [
+            "success",
+          ],
+          "type": "object",
+        },
+      },
+      {
+        "command": "get-all-todos",
+        "description": "Lista todas as tarefas registradas.",
+        "input_schema": {
+          "properties": {},
+          "type": "object",
+        },
+        "name": "get-all-todos",
+        "output_schema": {
+          "items": {
+            "properties": {
+              "completed": {
+                "type": "boolean",
+              },
+              "description": {
+                "type": "string",
+              },
+              "id": {
+                "type": "number",
+              },
+              "title": {
+                "type": "string",
+              },
+            },
+            "required": [
+              "id",
+              "title",
+              "description",
+              "completed",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+      },
+    ],
+    "description": "Gerencia tarefas com operações de CRUD completo.",
+    "examples": {
+      "create-todo": {
+        "request": "{
+  "command": "create-todo",
+  "payload": {
+    "title": "Estudar TypeScript",
+    "description": "Praticar tipos e interfaces avançadas",
+    "completed": false
+  }
+}",
+        "response": "{
+  "id": 101,
+  "title": "Estudar TypeScript",
+  "description": "Praticar tipos e interfaces avançadas",
+  "completed": false
+}",
+      },
+      "delete-todo": {
+        "request": "{
+  "command": "delete-todo",
+  "payload": {
+    "id": 101
+  }
+}",
+        "response": "{
+  "success": true,
+  "message": "Tarefa removida com sucesso."
+}",
+      },
+      "get-all-todos": {
+        "request": "{
+  "command": "get-all-todos",
+  "payload": {}
+}",
+        "response": "[
+  {
+    "id": 101,
+    "title": "Estudar TypeScript",
+    "description": "Praticar tipos e interfaces avançadas",
+    "completed": false
+  },
+  {
+    "id": 102,
+    "title": "Ler sobre Clean Architecture",
+    "description": "Estudo do livro do Uncle Bob",
+    "completed": true
+  }
+]",
+      },
+      "get-todo-by-id": {
+        "request": "{
+  "command": "get-todo-by-id",
+  "payload": {
+    "id": 101
+  }
+}",
+        "response": "{
+  "id": 101,
+  "title": "Estudar TypeScript",
+  "description": "Praticar tipos e interfaces avançadas",
+  "completed": false
+}",
+      },
+      "update-todo": {
+        "request": "{
+  "command": "update-todo",
+  "payload": {
+    "id": 101,
+    "title": "Estudar TypeScript - Atualizado",
+    "description": "Foco em generics e utility types",
+    "completed": true
+  }
+}",
+        "response": "{
+  "id": 101,
+  "title": "Estudar TypeScript - Atualizado",
+  "description": "Foco em generics e utility types",
+  "completed": true
+}",
+      },
+    },
+    "name": "TodoManager",
+  },
+}
+`;
