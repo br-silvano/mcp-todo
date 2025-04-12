@@ -21,7 +21,11 @@ ws.onopen = () => {
   );
 };
 
-ws.onmessage = (event) => console.log("📥 Resposta:", event.data);
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
 ws.onerror = (error) => console.error("❌ Erro:", error);
 ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
@@ -35,7 +39,12 @@ const ws = new WebSocket("ws://localhost:8080/mcp");
 
 ws.onopen = () =>
   ws.send(JSON.stringify({ command: "list-tools", apiKey: "SENHA_SECRETA" }));
-ws.onmessage = (event) => console.log("🧾 Ferramentas:", event.data);
+
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
 ws.onerror = (error) => console.error("❌ Erro:", error);
 ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
@@ -79,7 +88,9 @@ ws.onopen = () => {
     }
   };
 };
-ws.onerror = (err) => console.error("❌ Erro WebSocket:", err);
+
+ws.close();
+ws.onerror = (error) => console.error("❌ Erro:", error);
 ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
 
@@ -100,9 +111,243 @@ ws.onopen = () =>
       "apiKey": "123456"
     })
   );
-ws.onmessage = (event) => console.log("📥 Resposta:", event.data);
+
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
 ws.onerror = (error) => console.error("❌ Erro:", error);
 ws.onclose = () => console.log("🔒 Conexão encerrada.");
+```
+
+**Output exemplo**:
+```json
+{
+	"response": "Capacidades da ferramenta 'TodoManager':",
+	"description": "Gerencia tarefas com operações de CRUD completo.",
+	"capabilities": [
+		{
+			"name": "create-todo",
+			"command": "create-todo",
+			"description": "Cria uma nova tarefa com título e descrição.",
+			"input_schema": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"completed": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"title"
+				]
+			},
+			"output_schema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"completed": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"description",
+					"completed"
+				]
+			}
+		},
+		{
+			"name": "get-todo-by-id",
+			"command": "get-todo-by-id",
+			"description": "Busca uma tarefa pelo ID.",
+			"input_schema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					}
+				},
+				"required": [
+					"id"
+				]
+			},
+			"output_schema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"completed": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"description",
+					"completed"
+				]
+			}
+		},
+		{
+			"name": "update-todo",
+			"command": "update-todo",
+			"description": "Atualiza uma tarefa existente.",
+			"input_schema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"completed": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id"
+				]
+			},
+			"output_schema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"completed": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"description",
+					"completed"
+				]
+			}
+		},
+		{
+			"name": "delete-todo",
+			"command": "delete-todo",
+			"description": "Remove uma tarefa pelo ID.",
+			"input_schema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"id"
+				]
+			},
+			"output_schema": {
+				"type": "object",
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success"
+				]
+			}
+		},
+		{
+			"name": "get-all-todos",
+			"command": "get-all-todos",
+			"description": "Lista todas as tarefas registradas.",
+			"input_schema": {
+				"type": "object",
+				"properties": {}
+			},
+			"output_schema": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "number"
+						},
+						"title": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						},
+						"completed": {
+							"type": "boolean"
+						}
+					},
+					"required": [
+						"id",
+						"title",
+						"description",
+						"completed"
+					]
+				}
+			}
+		}
+	],
+	"examples": {
+		"create-todo": {
+			"request": "{\n  \"command\": \"create-todo\",\n  \"payload\": {\n    \"title\": \"Estudar TypeScript\",\n    \"description\": \"Praticar tipos e interfaces avançadas\",\n    \"completed\": false\n  }\n}",
+			"response": "{\n  \"id\": 101,\n  \"title\": \"Estudar TypeScript\",\n  \"description\": \"Praticar tipos e interfaces avançadas\",\n  \"completed\": false\n}"
+		},
+		"get-todo-by-id": {
+			"request": "{\n  \"command\": \"get-todo-by-id\",\n  \"payload\": {\n    \"id\": 101\n  }\n}",
+			"response": "{\n  \"id\": 101,\n  \"title\": \"Estudar TypeScript\",\n  \"description\": \"Praticar tipos e interfaces avançadas\",\n  \"completed\": false\n}"
+		},
+		"update-todo": {
+			"request": "{\n  \"command\": \"update-todo\",\n  \"payload\": {\n    \"id\": 101,\n    \"title\": \"Estudar TypeScript - Atualizado\",\n    \"description\": \"Foco em generics e utility types\",\n    \"completed\": true\n  }\n}",
+			"response": "{\n  \"id\": 101,\n  \"title\": \"Estudar TypeScript - Atualizado\",\n  \"description\": \"Foco em generics e utility types\",\n  \"completed\": true\n}"
+		},
+		"delete-todo": {
+			"request": "{\n  \"command\": \"delete-todo\",\n  \"payload\": {\n    \"id\": 101\n  }\n}",
+			"response": "{\n  \"success\": true,\n  \"message\": \"Tarefa removida com sucesso.\"\n}"
+		},
+		"get-all-todos": {
+			"request": "{\n  \"command\": \"get-all-todos\",\n  \"payload\": {}\n}",
+			"response": "[\n  {\n    \"id\": 101,\n    \"title\": \"Estudar TypeScript\",\n    \"description\": \"Praticar tipos e interfaces avançadas\",\n    \"completed\": false\n  },\n  {\n    \"id\": 102,\n    \"title\": \"Ler sobre Clean Architecture\",\n    \"description\": \"Estudo do livro do Uncle Bob\",\n    \"completed\": true\n  }\n]"
+		}
+	}
+}
 ```
 
 ---
@@ -120,7 +365,12 @@ ws.onopen = () =>
       apiKey: "SENHA_SECRETA",
     })
   );
-ws.onmessage = (event) => console.log("📥 Resposta:", event.data);
+
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
 ws.onerror = (error) => console.error("❌ Erro:", error);
 ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
@@ -144,7 +394,13 @@ ws.onopen = () => {
   );
 };
 
-ws.onmessage = (event) => console.log("📥 Resposta (criar TODO):", event.data);
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
+ws.onerror = (error) => console.error("❌ Erro:", error);
+ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
 
 #### 📄 Listar TODOs
@@ -160,8 +416,14 @@ ws.onopen = () =>
       apiKey: "SENHA_SECRETA",
     })
   );
-ws.onmessage = (event) =>
-  console.log("📥 Resposta (listar TODOS):", event.data);
+
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
+ws.onerror = (error) => console.error("❌ Erro:", error);
+ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
 
 #### 🔎 Buscar TODO por ID
@@ -177,8 +439,14 @@ ws.onopen = () =>
       apiKey: "SENHA_SECRETA",
     })
   );
-ws.onmessage = (event) =>
-  console.log("📥 Resposta (buscar TODO por ID):", event.data);
+
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
+ws.onerror = (error) => console.error("❌ Erro:", error);
+ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
 
 #### ✏️ Atualizar TODO
@@ -194,8 +462,14 @@ ws.onopen = () =>
       apiKey: "SENHA_SECRETA",
     })
   );
-ws.onmessage = (event) =>
-  console.log("📥 Resposta (atualizar TODO):", event.data);
+
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
+ws.onerror = (error) => console.error("❌ Erro:", error);
+ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
 
 #### 🗑️ Deletar TODO
@@ -211,8 +485,14 @@ ws.onopen = () =>
       apiKey: "SENHA_SECRETA",
     })
   );
-ws.onmessage = (event) =>
-  console.log("📥 Resposta (deletar TODO):", event.data);
+
+ws.onmessage = (event) => {
+	console.log("📥 Resposta:", JSON.parse(event.data));
+	ws.close();
+};
+
+ws.onerror = (error) => console.error("❌ Erro:", error);
+ws.onclose = () => console.log("🔒 Conexão encerrada.");
 ```
 
 ---
