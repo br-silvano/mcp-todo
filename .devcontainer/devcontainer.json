@@ -31,5 +31,5 @@
       ]
     }
   },
-  "postCreateCommand": "apt update && apt install -y docker.io docker-compose git curl && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt install -y nodejs && npm install -g pnpm && npm install -g @fsouza/prettierd"
+  "postCreateCommand": "apt update && apt install -y build-essential docker.io docker-compose git curl && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt install -y nodejs && npm install -g @fsouza/prettierd"
 }

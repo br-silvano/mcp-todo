@@ -27,7 +27,7 @@ jobs:
         run: npm test -- -u
 
       - name: Build
-        run: npm run build
+        run: make build
 
       - name: Upload do Artifact
         uses: actions/upload-artifact@v4
