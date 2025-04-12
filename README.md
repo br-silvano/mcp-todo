@@ -2,7 +2,7 @@
 
 [![Build and Test](https://github.com/br-silvano/mcp-todo/actions/workflows/build.yml/badge.svg)](https://github.com/br-silvano/mcp-todo/actions/workflows/build.yml)
 
-> API de gerenciamento de tarefas via WebSocket com execução modular de comandos e suporte a ferramentas, desenvolvida em TypeScript com banco SQLite.
+> API de gerenciamento de tarefas via WebSocket com execução modular de comandos e suporte a ferramentas, desenvolvida em TypeScript com banco SQLite. Projetada para integração com agentes de inteligência artificial.
 
 ---
 
