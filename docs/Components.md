@@ -146,3 +146,9 @@ package "Módulos do Sistema" {
 > - **Handlers:** O domínio de TODO possui handlers específicos (criação, atualização, consulta e exclusão) enquanto os de ferramentas englobam os comandos para listar, usar e executar um echo.
 > - **Processador & Servidor:** O **MCPMessageProcessor** atua como intermediário, direcionando as mensagens para os handlers corretos, e o fluxo segue para a comunicação via WebSocket e interface STDIO.
 > - **Utilitários e Configurações:** São responsáveis por aspectos complementares, garantindo modularidade e coesão na aplicação.
+
+---
+
+## Ferramentas
+
+[PlantUML](https://plantuml.com)

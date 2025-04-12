@@ -107,3 +107,9 @@ WS -> Client: Retorna resposta
 
 5. **Resposta ao Cliente:**
    - O **UseToolHandler** envia a resposta (por exemplo, uma confirmação de que a tarefa foi criada) ao **WebSocketServer**, que por sua vez encaminha ao **Cliente**.
+
+---
+
+## Ferramentas
+
+[PlantUML](https://plantuml.com)
