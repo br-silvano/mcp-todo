@@ -34,4 +34,4 @@ const webSocketServer = new WebSocketServerWrapper(PORT, messageProcessor, authe
 
 const mcpServer = new MCPServer(webSocketServer);
 
-mcpServer.startStdioInterface();
+mcpServer.start();

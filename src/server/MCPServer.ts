@@ -7,14 +7,23 @@ export class MCPServer {
   private readonly rl: readline.Interface;
 
   constructor(private readonly webSocketServer: WebSocketServerWrapper) {
-    this.webSocketServer.initialize();
     this.rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
     });
   }
 
-  public startStdioInterface(): void {
+  start(): void {
+    try {
+      this.webSocketServer.initialize();
+      this.startStdioInterface();
+    } catch (error) {
+      logger.error("Erro ao iniciar o servidor:", error);
+      process.exit(1);
+    }
+  }
+
+  private startStdioInterface(): void {
     logger.info("✅ Interface STDIO iniciada. Digite comandos (ex: status, sair):");
 
     this.rl.on("line", (input: string) => {
@@ -24,17 +33,17 @@ export class MCPServer {
     });
   }
 
+  private commandHandlers: { [key: string]: () => void } = {
+    status: this.showStatus.bind(this),
+    sair: this.shutdown.bind(this),
+  };
+
   private handleCommand(command: string): void {
-    switch (command) {
-      case "status":
-        this.showStatus();
-        break;
-      case "sair":
-        this.shutdown();
-        break;
-      default:
-        logger.warn(`⚠️ Comando não reconhecido: ${command}`);
-        break;
+    const handler = this.commandHandlers[command];
+    if (handler) {
+      handler();
+    } else {
+      logger.warn(`⚠️ Comando não reconhecido: ${command}`);
     }
   }
 
@@ -45,6 +54,7 @@ export class MCPServer {
   private shutdown(): void {
     logger.info("🛑 Encerrando aplicação...");
     this.rl.close();
+    this.webSocketServer.shutdown();
     process.exit(0);
   }
 }
