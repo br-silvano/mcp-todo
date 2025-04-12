@@ -1,8 +1,8 @@
-## 🧱 MCP Boilerplate
+## 🧱 MCP Todo
 
 [![Build and Test](https://github.com/br-silvano/mcp-todo/actions/workflows/build.yml/badge.svg)](https://github.com/br-silvano/mcp-todo/actions/workflows/build.yml)
 
-Este projeto é um boilerplate base para aplicações Node.js com suporte a TypeScript, ESLint, Husky, Jest, entre outras ferramentas modernas de desenvolvimento.
+> API de gerenciamento de tarefas via WebSocket com execução modular de comandos e suporte a ferramentas, desenvolvida em TypeScript com banco SQLite.
 
 ---
 
