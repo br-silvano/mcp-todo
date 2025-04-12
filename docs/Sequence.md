@@ -96,7 +96,7 @@ WS -> Client: Retorna resposta
 
 3. **Autenticação:**
 
-   - O **UseToolHandler** invoca o **AuthenticationService** para validar a chave de API ("SENHA*SECRETA") de forma \_lazy*.
+   - O **UseToolHandler** invoca o **AuthenticationService** para validar a chave de API ("SENHA*SECRETA") de forma \_eager*.
    - Uma resposta positiva permite a continuidade do fluxo.
 
 4. **Execução do Comando com Ferramenta Registrada:**
