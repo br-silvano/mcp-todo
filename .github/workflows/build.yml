@@ -34,3 +34,9 @@ jobs:
         with:
           name: build-artifact
           path: ./dist
+
+      - name: Upload cobertura de testes
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: ./coverage
