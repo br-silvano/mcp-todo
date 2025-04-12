@@ -92,7 +92,8 @@ export const buildToolRegistry = (): ToolRegistry => {
         output_schema: {
           type: "object",
           properties: {
-            success: { type: "boolean" }
+            success: { type: "boolean" },
+            message: { type: "string" }
           },
           required: ["success"]
         }

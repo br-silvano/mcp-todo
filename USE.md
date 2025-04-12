@@ -52,13 +52,16 @@ let todoId = null;
 ws.onopen = () => {
   ws.send(
     JSON.stringify({
-      command: "use-tool",
-      payload: {
-        tool: "TodoManager",
-        capability: "create-todo",
-        input: { title: "Estudar DDD", completed: false },
+      "command": "use-tool",
+      "payload": {
+        "tool": "TodoManager",
+        "capability": "create-todo",
+        "input": {
+          "title": "Estudar DDD",
+          "completed": false
+        }
       },
-      apiKey,
+      "apiKey": "123456"
     })
   );
 
@@ -90,9 +93,11 @@ const ws = new WebSocket("ws://localhost:8080/mcp");
 ws.onopen = () =>
   ws.send(
     JSON.stringify({
-      command: "help-tool",
-      payload: { tool: "TodoManager" },
-      apiKey: "SENHA_SECRETA",
+      "command": "help-tool",
+      "payload": {
+        "tool": "TodoManager"
+      },
+      "apiKey": "123456"
     })
   );
 ws.onmessage = (event) => console.log("📥 Resposta:", event.data);

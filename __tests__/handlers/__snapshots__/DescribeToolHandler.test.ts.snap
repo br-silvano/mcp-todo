@@ -153,6 +153,9 @@ exports[`DescribeToolHandler deve retornar a descrição detalhada da ferramenta
         "name": "delete-todo",
         "output_schema": {
           "properties": {
+            "message": {
+              "type": "string",
+            },
             "success": {
               "type": "boolean",
             },

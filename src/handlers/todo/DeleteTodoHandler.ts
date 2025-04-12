@@ -1,7 +1,7 @@
 import { MCPMessage } from "../../models/MCPMessage";
-import { ICommandHandler } from "../tool/ICommandHandler";
-import { TodoService } from '../../services/TodoService';
 import { ExtendedWebSocket } from '../../server/WebSocketServerWrapper';
+import { TodoService } from '../../services/TodoService';
+import { ICommandHandler } from "../tool/ICommandHandler";
 
 export class DeleteTodoHandler implements ICommandHandler {
   constructor(
@@ -16,12 +16,12 @@ export class DeleteTodoHandler implements ICommandHandler {
     try {
       const deleted = this.todoService.deleteTodo(message.payload);
       if (deleted) {
-        ws.send(JSON.stringify({ message: "Todo deletado com sucesso." }));
+        ws.send(JSON.stringify({ success: true, message: "Todo deletado com sucesso." }));
       } else {
-        ws.send(JSON.stringify({ error: "Todo não encontrado para deletar." }));
+        ws.send(JSON.stringify({ success: false, message: "Todo não encontrado para deletar." }));
       }
     } catch (err: any) {
-      ws.send(JSON.stringify({ error: err.message }));
+      ws.send(JSON.stringify({ success: false, message: err.message }));
     }
   }
 }

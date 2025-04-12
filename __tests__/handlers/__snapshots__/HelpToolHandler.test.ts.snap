@@ -152,6 +152,9 @@ exports[`HelpToolHandler deve retornar os detalhes (capabilities, descrições e
       "name": "delete-todo",
       "output_schema": {
         "properties": {
+          "message": {
+            "type": "string",
+          },
           "success": {
             "type": "boolean",
           },
