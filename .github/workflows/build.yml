@@ -29,6 +29,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verificar existência do diretório de build
+        run: |
+          if [ ! -d "./dist" ]; then
+            echo "::error::Diretório ./dist não encontrado. Verifique o comando de build.";
+            exit 1;
+          fi
+
+      - name: Listar conteúdo após build
+        run: ls -la ./dist
+
       - name: Upload do Artifact
         uses: actions/upload-artifact@v4
         with:
