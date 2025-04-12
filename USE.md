@@ -57,41 +57,66 @@ ws.onclose = () => console.log("🔒 Conexão encerrada.");
 const ws = new WebSocket("ws://localhost:8080/mcp");
 const apiKey = "SENHA_SECRETA";
 let todoId = null;
+let hasListedTodos = false;
 
-ws.onopen = () => {
-  ws.send(
-    JSON.stringify({
-      "command": "use-tool",
-      "payload": {
-        "tool": "TodoManager",
-        "capability": "create-todo",
-        "input": {
-          "title": "Estudar DDD",
-          "completed": false
-        }
-      },
-      "apiKey": "123456"
-    })
-  );
+function sendCommand(command, payload) {
+  ws.send(JSON.stringify({ command, payload, apiKey }));
+}
 
-  ws.onmessage = (event) => {
+function createTodo() {
+  sendCommand("use-tool", {
+    tool: "TodoManager",
+    capability: "create-todo",
+    input: {
+      title: "Estudar DDD",
+      completed: false,
+    },
+  });
+}
+
+function listTodos() {
+  sendCommand("use-tool", {
+    tool: "TodoManager",
+    capability: "get-all-todos",
+    input: {},
+  });
+}
+
+ws.onmessage = (event) => {
+  try {
     const response = JSON.parse(event.data);
+    console.log("📥 Resposta:", response);
+
     if (response.capability === "create-todo" && response.result?.id) {
       todoId = response.result.id;
-      ws.send(
-        JSON.stringify({
-          command: "use-tool",
-          payload: { tool: "TodoManager", capability: "get-all-todos" },
-          apiKey,
-        })
-      );
+      console.log(`✅ Tarefa criada com ID ${todoId}`);
+      listTodos();
     }
-  };
+
+    if (response.capability === "get-all-todos") {
+      console.log("📋 Lista de tarefas:", response.result);
+      hasListedTodos = true;
+      ws.close(); // Fecha a conexão após o uso
+    }
+  } catch (error) {
+    console.error("⚠️ Erro ao processar a mensagem:", error);
+  }
 };
 
-ws.close();
-ws.onerror = (error) => console.error("❌ Erro:", error);
-ws.onclose = () => console.log("🔒 Conexão encerrada.");
+ws.onopen = () => {
+  console.log("🔓 Conexão aberta.");
+  createTodo();
+};
+
+ws.onerror = (error) => console.error("❌ Erro na conexão:", error);
+
+ws.onclose = () => {
+  if (hasListedTodos) {
+    console.log("🔒 Conexão encerrada após listar os todos.");
+  } else {
+    console.log("🔒 Conexão encerrada prematuramente.");
+  }
+};
 ```
 
 ---
