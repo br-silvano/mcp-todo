@@ -226,3 +226,9 @@ Exemplos para testar comandos via WebSocket na API MCP:
 - **`use-tool`**: Invoca ferramentas específicas (ex., **TodoManager**).
 - **`help-tool` / `describe-tool`**: Obtém detalhes da ferramenta **TodoManager**.
 - CRUD: Operações em TODOs via WebSocket (criar, listar, buscar, atualizar, deletar).
+
+---
+
+### Ferramentas
+
+[Hoppscotch](https://hoppscotch.io)
